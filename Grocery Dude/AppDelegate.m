@@ -8,39 +8,104 @@
 
 #import "AppDelegate.h"
 #import "Item.h"
+/* Listing 3.2
+ #import "Measurement.h" */
+/* Listing 3.4
+ #import "Amount.h" */
+/* Listing 3.10 */
+#import "Unit.h"
 
 @implementation AppDelegate
 
 - (void)demo {
-//	MyLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-//	
-//	NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
-	//[[[_coreDataHelper model] fetchRequestTemplateForName:@"Test"] copy];
-
+	MyLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 	
-//	NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-//	[request setSortDescriptors:[NSArray arrayWithObject:sort]];
-//	
-//	NSPredicate *filter = [NSPredicate predicateWithFormat:@"name != %@", @"Coffee"];
-//	[request setPredicate:filter];
+	/* Listing 3.2
+	 // Time for a ton of test data using Management entities
+	 for (int i = 1; i < 5000; i++) {
+	 Measurement *newMeasurement = [NSEntityDescription insertNewObjectForEntityForName:@"Measurement"
+	 inManagedObjectContext:_coreDataHelper.context];
+	 
+	 newMeasurement.abc = [NSString stringWithFormat:@"--->> LOTS OF TEST DATA x%i", i];
+	 MyLog(@"Inserted %@", newMeasurement.abc);
+	 }
+	 [_coreDataHelper saveContext];
+	 */
+	/* Listing 3.3
+	 // fetches a small sample of Measurement data (50) to show what is in the persistant store
+	 NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Measurement"];
+	 [request setFetchLimit:50];
+	 NSError *error = nil;
+	 NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:&error];
+	 
+	 if (error) {
+	 MyLog(@"%@", error);
+	 } else {
+	 for (Measurement *measurement in fetchedObjects) {
+	 MyLog(@"Fetched Object = %@", measure.abc);
+	 }
+	 }
+	 */
+	/* Listing 3.4
+	 // fetches a small sample of Measurement data (50) to show what is in the persistant store
+	 NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Amount"];
+	 [request setFetchLimit:50];
+	 NSError *error = nil;
+	 NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:&error];
+	 
+	 if (error) {
+	 MyLog(@"%@", error);
+	 } else {
+	 for (Amount *amount in fetchedObjects) {
+	 MyLog(@"Fetched Object = %@", amount.xyz);
+	 }
+	 }
+	 */
 	
-//	NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:nil];
-//	
-//	for (Item *item in fetchedObjects) {
-//		MyLog(@"Deleting Object '%@'", item.name);
-//		[_coreDataHelper.context deleteObject:item];
-//		MyLog(@"Fetched Object = %@", item.name);
-//	}
+	/* Listing 3.4 */
+	// fetches a small sample of Measurement data (50) to show what is in the persistant store
+	NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Unit"];
+	[request setFetchLimit:50];
+	NSError *error = nil;
+	NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:&error];
 	
-//	NSArray *newItemNames = [NSArray arrayWithObjects:@"Apples", @"Milk", @"Bread", @"Cheese", @"Sausages", @"Butter", @"Orange Juice", @"Cereal", @"Coffee", @"Eggs", @"Tomatoes", @"Fish", nil];
-//	
-//	for (NSString *newItemName in newItemNames) {
-//		Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
-//													  inManagedObjectContext:_coreDataHelper.context];
-//		newItem.name = newItemName;
-//		MyLog(@"Inserted New Managed Object for '%@'", newItem.name);
-//	}
+	if (error) {
+		MyLog(@"%@", error);
+	} else {
+		for (Unit *unit in fetchedObjects) {
+			MyLog(@"Fetched Object = %@", unit.name);
+		}
+	}
+	
+	
+	//	[[[_coreDataHelper model] fetchRequestTemplateForName:@"Test"] copy];
+	
+	
+	//	NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+	//	[request setSortDescriptors:[NSArray arrayWithObject:sort]];
+	//
+	//	NSPredicate *filter = [NSPredicate predicateWithFormat:@"name != %@", @"Coffee"];
+	//	[request setPredicate:filter];
+	
+	//	NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:nil];
+	//
+	//	for (Item *item in fetchedObjects) {
+	//		MyLog(@"Deleting Object '%@'", item.name);
+	//		[_coreDataHelper.context deleteObject:item];
+	//		MyLog(@"Fetched Object = %@", item.name);
+	//	}
+	
+	//	NSArray *newItemNames = [NSArray arrayWithObjects:@"Apples", @"Milk", @"Bread", @"Cheese", @"Sausages", @"Butter", @"Orange Juice", @"Cereal", @"Coffee", @"Eggs", @"Tomatoes", @"Fish", nil];
+	//
+	//	for (NSString *newItemName in newItemNames) {
+	//		Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
+	//													  inManagedObjectContext:_coreDataHelper.context];
+	//		newItem.name = newItemName;
+	//		MyLog(@"Inserted New Managed Object for '%@'", newItem.name);
+	//	}
 }
+
+
 
 // Returns a non-nil CoreDataHelper instance
 - (CoreDataHelper*)cdh {
